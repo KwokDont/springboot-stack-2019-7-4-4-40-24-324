@@ -12,6 +12,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -31,7 +34,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void Should_return_message_when_find_by_id_given_id() throws Exception{
-        Employee employee = new Employee("001","liufan",18,"male");
+        Employee employee = new Employee("001","liufan",18,"male",8000);
 
         when(employeeService.findById((anyString()))).thenReturn(employee);
 
@@ -40,5 +43,23 @@ public class EmployeeControllerTest {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("liufan")))
                 .andExpect(jsonPath("$.id", is("001")));
+    }
+
+    @Test
+    public void Should_return_employee_list_when_find_all_employees() throws Exception{
+
+        Employee employee = new Employee("001","liufan",18,"male",8000);
+        Employee employee2 = new Employee("002","eddy",22,"male",9000);
+        List<Employee> employees = Arrays.asList(employee,employee2);
+
+        when(employeeService.getAllEmployees()).thenReturn(employees);
+
+        ResultActions resultActions = mockMvc.perform(get("/employees"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id", is("001")))
+                .andExpect(jsonPath("$[0].name", is("liufan")))
+                .andExpect(jsonPath("$[1].id", is("002")))
+                .andExpect(jsonPath("$[1].name", is("eddy")));
     }
 }

@@ -12,15 +12,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     private final static Map<String, Employee> employees = new HashMap<>();
 
     static {
-        addEmployee("fan",22,"male");
-        addEmployee("liu",22,"male");
-        addEmployee("yong",22,"female");
-        addEmployee("young",22,"male");
+        addEmployee("fan",20,"male",1000);
+        addEmployee("liu",22,"male",2000);
+        addEmployee("dean",26,"female",3000);
+        addEmployee("young",31,"male",4000);
     }
 
-    public static void addEmployee(String name,int age, String gender){
+    public static void addEmployee(String name,int age, String gender, double salary){
         String key = UUID.randomUUID().toString();
-        Employee employee = new Employee(key, name, age, gender);
+        Employee employee = new Employee(key, name, age, gender, salary);
         employees.put(key,employee);
     }
 
@@ -28,7 +28,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         if(employees.containsKey(employee.getId())){
             employees.put(employee.getId(),employee);
         }else{
-            addEmployee(employee.getName(),employee.getAge(),employee.getGender());
+            addEmployee(employee.getName(),employee.getAge(),employee.getGender(),employee.getSalary());
         }
     }
 
