@@ -20,8 +20,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
@@ -110,6 +109,20 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$[0].gender", is("male")))
                 .andExpect(jsonPath("$[1].gender", is("male")))
                 .andExpect(jsonPath("$[2].gender", is("male")));
+
+    }
+
+    @Test
+    public void Should_update_a_employees_when_given_employeeId() throws Exception{
+
+        Employee employee = new Employee("1","liufan",18,"male",8000);
+
+        when(employeeService.updateById("1")).thenReturn(employee);
+
+        ResultActions resultActions = mockMvc.perform(put("/employees/1"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is("1")));
 
     }
 }

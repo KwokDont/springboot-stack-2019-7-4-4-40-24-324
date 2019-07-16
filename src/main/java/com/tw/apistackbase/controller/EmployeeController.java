@@ -39,6 +39,11 @@ public class EmployeeController {
         return employeeService.findById(employeeId);
     }
 
+    @PutMapping("/employees/{employeeId}")
+    public Employee updateEmployeeById(@PathVariable String employeeId){
+        return employeeService.updateById(employeeId);
+    }
+
     @DeleteMapping("/employees/{employeeId}")
     public void deleteEmployeeById(@PathVariable String employeeId){
         employeeService.deleteById(employeeId);

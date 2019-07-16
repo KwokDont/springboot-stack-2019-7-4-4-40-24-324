@@ -16,6 +16,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         addEmployee("liu",22,"male",2000);
         addEmployee("dean",26,"female",3000);
         addEmployee("young",31,"male",4000);
+        employees.put("1",new Employee("1","xu",22,"male",6000));
     }
 
     public static void addEmployee(String name,int age, String gender, double salary){
@@ -49,6 +50,14 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public List<Employee> findByGender(String gender) {
         return getAllEmployees().stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Employee updateById(String employeeId) {
+        Employee employee = employees.get(employeeId);
+        employee.setName("xu666");
+        employees.put(employee.getId(),employee);
+        return employee;
     }
 
     public Employee findById(String employeeId){

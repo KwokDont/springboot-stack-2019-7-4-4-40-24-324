@@ -19,4 +19,6 @@ public interface EmployeeService {
     List<Employee> getEmployeesByPage(int page, int pageSize);
 
     List<Employee> findByGender(String gender);
+
+    Employee updateById(String employeeId);
 }

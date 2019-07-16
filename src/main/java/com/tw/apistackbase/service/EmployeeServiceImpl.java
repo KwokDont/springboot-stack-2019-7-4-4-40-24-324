@@ -50,4 +50,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findByGender(String gender) {
         return repository.findByGender(gender);
     }
+
+    @Override
+    public Employee updateById(String employeeId) {
+        return repository.updateById(employeeId);
+    }
 }
