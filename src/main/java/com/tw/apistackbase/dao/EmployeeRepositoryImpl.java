@@ -46,6 +46,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return returnList;
     }
 
+    @Override
+    public List<Employee> findByGender(String gender) {
+        return getAllEmployees().stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
+    }
+
     public Employee findById(String employeeId){
         return employees.get(employeeId);
     }

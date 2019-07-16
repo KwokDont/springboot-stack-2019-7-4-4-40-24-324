@@ -19,4 +19,6 @@ public interface EmployeeRepository {
     public List<Employee> findAgeMoreThan(int leastAge);
 
     List<Employee> getEmployeesByPage(int page, int pageSize);
+
+    List<Employee> findByGender(String gender);
 }

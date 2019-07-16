@@ -95,4 +95,21 @@ public class EmployeeControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    public void Should_screen_all_male_employees_when_given_gender() throws Exception{
+
+        Employee employee = new Employee("001","liufan",18,"male",8000);
+        List<Employee> employees = Arrays.asList(employee,employee,employee);
+
+        when(employeeService.findByGender("male")).thenReturn(employees);
+
+        ResultActions resultActions = mockMvc.perform(get("/employees?gender=male"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].gender", is("male")))
+                .andExpect(jsonPath("$[1].gender", is("male")))
+                .andExpect(jsonPath("$[2].gender", is("male")));
+
+    }
 }

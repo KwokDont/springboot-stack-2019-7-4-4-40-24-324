@@ -45,4 +45,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getEmployeesByPage(int page, int pageSize) {
         return repository.getEmployeesByPage(page, pageSize);
     }
+
+    @Override
+    public List<Employee> findByGender(String gender) {
+        return repository.findByGender(gender);
+    }
 }
