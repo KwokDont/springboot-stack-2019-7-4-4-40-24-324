@@ -17,4 +17,9 @@ public class CompanyServiceImpl implements CompanyService {
     public List<Company> getCompanyList() {
         return companyRepository.getCompanyList();
     }
+
+    @Override
+    public Company getByCompanyId(String companyId) {
+        return companyRepository.getByCompanyId(companyId);
+    }
 }

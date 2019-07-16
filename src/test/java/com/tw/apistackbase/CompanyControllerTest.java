@@ -51,4 +51,20 @@ public class CompanyControllerTest {
                 .andExpect(jsonPath("$[0].id", is("1111")))
                 .andExpect(jsonPath("$[1].companyName", is("tencent")));
     }
+
+    @Test
+    public void Should_return_specific_company_when_given_companyId() throws Exception{
+
+        Employee employee = new Employee("002","eddy",22,"male",9000);
+        List<Employee> employees = Arrays.asList(employee,employee,employee);
+        Company company = new Company("1111", "alibaba", 200, employees);
+
+        when(companyService.getByCompanyId("1")).thenReturn(company);
+
+        ResultActions resultActions = mockMvc.perform(get("/companies/1"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is("1111")));
+    }
+
 }

@@ -19,7 +19,7 @@ public class CompanyRepositoryImpl implements CompanyRepository{
         employeesList.addAll(Arrays.asList(employee,employee,employee,employee,employee));
     }
 
-    static private Company company = new Company("1111", "alibaba", 200, employeesList);
+    static private Company company = new Company("1", "alibaba", 200, employeesList);
     static private List<Company> companyList = new ArrayList<>();
 
     static {
@@ -29,5 +29,10 @@ public class CompanyRepositoryImpl implements CompanyRepository{
     @Override
     public List<Company> getCompanyList() {
         return companyList;
+    }
+
+    @Override
+    public Company getByCompanyId(String companyId) {
+        return companyList.stream().filter(company1 -> company1.getId().equals(companyId)).findFirst().get();
     }
 }

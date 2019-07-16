@@ -7,4 +7,6 @@ import java.util.List;
 public interface CompanyRepository {
 
     public List<Company> getCompanyList();
+
+    Company getByCompanyId(String companyId);
 }

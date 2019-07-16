@@ -7,4 +7,6 @@ import java.util.List;
 public interface CompanyService {
 
     public List<Company> getCompanyList();
+
+    Company getByCompanyId(String companyId);
 }
