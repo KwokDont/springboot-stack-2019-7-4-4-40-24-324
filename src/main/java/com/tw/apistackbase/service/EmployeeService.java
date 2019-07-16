@@ -15,4 +15,6 @@ public interface EmployeeService {
     public void deleteById(String employeeId);
 
     public List<Employee> findAgeMoreThan(int leastAge);
+
+    List<Employee> getEmployeesByPage(int page, int pageSize);
 }

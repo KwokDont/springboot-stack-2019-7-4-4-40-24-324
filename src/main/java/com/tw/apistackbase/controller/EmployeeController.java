@@ -18,6 +18,11 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
+    @GetMapping("/employees/{page},{pageSize}")
+    public List<Employee> getEmployeesByPage(@PathVariable int page,@PathVariable int pageSize){
+        return employeeService.getEmployeesByPage(page,pageSize);
+    }
+
     @PostMapping("/employees")
     public void saveEmployee(@RequestBody Employee employee){
         employeeService.save(employee);

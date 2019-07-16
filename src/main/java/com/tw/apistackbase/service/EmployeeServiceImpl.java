@@ -39,4 +39,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findAgeMoreThan(int leastAge) {
         return repository.findAgeMoreThan(leastAge);
     }
+
+    @Override
+    public List<Employee> getEmployeesByPage(int page, int pageSize) {
+        return repository.getEmployeesByPage(page, pageSize);
+    }
 }

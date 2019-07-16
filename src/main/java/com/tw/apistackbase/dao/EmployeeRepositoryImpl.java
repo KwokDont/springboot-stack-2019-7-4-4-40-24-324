@@ -32,6 +32,20 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
     }
 
+    @Override
+    public List<Employee> getEmployeesByPage(int page, int pageSize) {
+        List<Employee> employees = getAllEmployees();
+        int begin = (page - 1) * pageSize;
+        int end = begin + pageSize -1 > employees.size() ? begin + pageSize -1 : employees.size();
+        List<Employee> returnList = new ArrayList<>();
+        for(int i = 0 ; i < employees.size() ; i++){
+            if(i >= begin && i <= end){
+                returnList.add(employees.get(i));
+            }
+        }
+        return returnList;
+    }
+
     public Employee findById(String employeeId){
         return employees.get(employeeId);
     }
