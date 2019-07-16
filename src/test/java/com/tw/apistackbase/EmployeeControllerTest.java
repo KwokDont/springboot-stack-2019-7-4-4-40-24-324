@@ -33,7 +33,7 @@ public class EmployeeControllerTest {
     private EmployeeService employeeService;
 
     @Test
-    public void Should_return_message_when_find_by_id_given_id() throws Exception{
+    public void Should_return_employee_when_find_by_id_given_id() throws Exception{
         Employee employee = new Employee("001","liufan",18,"male",8000);
 
         when(employeeService.findById((anyString()))).thenReturn(employee);
