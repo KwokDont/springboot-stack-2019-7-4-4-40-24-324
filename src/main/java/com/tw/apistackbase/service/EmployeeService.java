@@ -12,7 +12,7 @@ public interface EmployeeService {
 
     public List<Employee> getAllEmployees();
 
-    public void deleteById(String employeeId);
+    public String deleteById(String employeeId);
 
     public List<Employee> findAgeMoreThan(int leastAge);
 

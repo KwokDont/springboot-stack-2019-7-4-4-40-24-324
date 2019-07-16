@@ -125,4 +125,17 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$.id", is("1")));
 
     }
+
+    @Test
+    public void Should_return_id_deleted_when_delete_a_employee() throws Exception{
+
+        Employee employee = new Employee("1","liufan",18,"male",8000);
+
+        when(employeeService.deleteById("1")).thenReturn("1");
+
+        ResultActions resultActions = mockMvc.perform(delete("/employees/1"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$", is(1)));
+    }
 }
