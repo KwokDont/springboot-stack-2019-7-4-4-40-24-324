@@ -3,6 +3,7 @@ package com.tw.apistackbase;
 import com.tw.apistackbase.controller.EmployeeController;
 import com.tw.apistackbase.model.Employee;
 import com.tw.apistackbase.service.EmployeeService;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -61,5 +64,21 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$[0].name", is("liufan")))
                 .andExpect(jsonPath("$[1].id", is("002")))
                 .andExpect(jsonPath("$[1].name", is("eddy")));
+    }
+
+    @Test
+    public void Should_return_two_employee_when_find_employees_by_page() throws Exception{
+
+        Employee employee = new Employee("001","liufan",18,"male",8000);
+        List<Employee> employees = Arrays.asList(employee,employee,employee,employee,employee);
+
+        when(employeeService.getEmployeesByPage(1,5)).thenReturn(employees);
+
+        ResultActions resultActions = mockMvc.perform(get("/employees?page=1&pageSize=5"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id", is("001")))
+                .andExpect(jsonPath("$[0].age", is(18)))
+                .andExpect(jsonPath("$[4].name", is("liufan")));
     }
 }

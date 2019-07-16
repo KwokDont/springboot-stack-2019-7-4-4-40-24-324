@@ -18,8 +18,8 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
-    @GetMapping("/employees/{page},{pageSize}")
-    public List<Employee> getEmployeesByPage(@PathVariable int page,@PathVariable int pageSize){
+    @GetMapping(value = "/employees",params = {"page","pageSize"})
+    public List<Employee> getEmployeesByPage(@RequestParam(value = "page")int page,@RequestParam(value = "pageSize")int pageSize){
         return employeeService.getEmployeesByPage(page,pageSize);
     }
 
@@ -39,7 +39,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employees",params = "leastAge")
-    public List<Employee> findAgeMoreThan(@RequestParam int leastAge) {
+    public List<Employee> findAgeMoreThan(@RequestParam("leastAge") int leastAge) {
         return employeeService.findAgeMoreThan(leastAge);
     }
 }
