@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -17,13 +18,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(EmployeeController.class)
@@ -80,5 +79,20 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$[0].id", is("001")))
                 .andExpect(jsonPath("$[0].age", is(18)))
                 .andExpect(jsonPath("$[4].name", is("liufan")));
+    }
+
+    @Test
+    public void Should_return_new_employee_when_save_employees() throws Exception{
+
+        mockMvc.perform(post("/employees").accept(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\n" +
+                        " \"name\":\"name\",\n" +
+                        "  \"age\":18,\n" +
+                        "  \"gender\":\"male\",\n" +
+                        "  \"salary\":8000\n" +
+                        "}"))
+                .andExpect(status().isOk());
+
     }
 }

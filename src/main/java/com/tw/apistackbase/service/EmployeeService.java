@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    void save(Employee employee);
+    Employee save(Employee employee);
 
     Employee findById(String employeeId);
 
