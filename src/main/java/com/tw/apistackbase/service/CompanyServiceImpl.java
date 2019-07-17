@@ -34,4 +34,9 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.getEmployeesById(s);
     }
 
+    @Override
+    public List<Company> getCompaniesByPage(int page, int pageSize) {
+        return companyRepository.getCompaniesByPage(page,pageSize);
+    }
+
 }

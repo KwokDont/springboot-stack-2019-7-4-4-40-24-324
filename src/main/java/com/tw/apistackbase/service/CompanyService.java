@@ -14,4 +14,6 @@ public interface CompanyService {
     void updateCompany();
 
     List<Employee> getEmployeesById(String s);
+
+    List<Company> getCompaniesByPage(int anyInt, int anyInt1);
 }

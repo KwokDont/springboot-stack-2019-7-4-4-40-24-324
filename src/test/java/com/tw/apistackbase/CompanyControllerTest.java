@@ -85,4 +85,20 @@ public class CompanyControllerTest {
                 .andExpect(jsonPath("$", hasSize(3)));
     }
 
+    @Test
+    public void Should_return_companies_range_in_0_to_4_when_given_page_and_pagesize() throws Exception{
+
+        Employee employee = new Employee("002","eddy",22,"male",9000);
+        List<Employee> employees = Arrays.asList(employee,employee,employee);
+        Company company = new Company("1111", "alibaba", 200, employees);
+        List<Company> companies = Arrays.asList(company,company,company,company,company);
+
+        when(companyService.getCompaniesByPage(anyInt(),anyInt())).thenReturn(companies);
+
+        ResultActions resultActions = mockMvc.perform(get("/companies?page=1&pageSize=5"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(5)));
+    }
+
 }

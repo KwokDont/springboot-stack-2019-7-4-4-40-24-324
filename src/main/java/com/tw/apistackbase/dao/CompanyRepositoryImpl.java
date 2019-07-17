@@ -27,6 +27,9 @@ public class CompanyRepositoryImpl implements CompanyRepository{
     static {
         companyList.add(company);
         companyList.add(company2);
+        companyList.add(company);
+        companyList.add(company2);
+        companyList.add(company2);
     }
 
     @Override
@@ -42,5 +45,18 @@ public class CompanyRepositoryImpl implements CompanyRepository{
     @Override
     public List<Employee> getEmployeesById(String companyId) {
         return companyList.stream().filter(company1 -> company1.getId().equals(companyId)).findFirst().get().getEmployees();
+    }
+
+    @Override
+    public List<Company> getCompaniesByPage(int page, int pageSize) {
+        List<Company> companies = getCompanyList();
+        int begin = (page - 1) * pageSize;
+        int end = (begin + pageSize + 1) > companies.size() ? companies.size() - 1 : (begin + pageSize -1);
+        List<Company> returnList = new ArrayList<>();
+        for(int i = begin ; i <= end ; i++){
+            System.out.println(i+"*************************");
+            returnList.add(companies.get(i));
+        }
+        return returnList;
     }
 }

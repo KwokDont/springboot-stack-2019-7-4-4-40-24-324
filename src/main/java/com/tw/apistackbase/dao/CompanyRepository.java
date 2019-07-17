@@ -12,4 +12,6 @@ public interface CompanyRepository {
     Company getByCompanyId(String companyId);
 
     List<Employee> getEmployeesById(String s);
+
+    List<Company> getCompaniesByPage(int page, int pageSize);
 }
