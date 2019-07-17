@@ -4,10 +4,9 @@ import com.tw.apistackbase.model.Company;
 import com.tw.apistackbase.model.Employee;
 import com.tw.apistackbase.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -26,5 +25,13 @@ public class CompanyController {
         return companyService.getByCompanyId(companyId);
     }
 
+    @PutMapping(value = "/companies/{companyId}")
+    public void updateComapany(@PathVariable String companyId,@RequestBody Company company){
+        companyService.updateCompany();
+    }
 
+    @GetMapping("/companies/{companyId}/employees")
+    public List<Employee> getEmployeesById(@PathVariable String companyId){
+        return companyService.getEmployeesById(companyId);
+    }
 }

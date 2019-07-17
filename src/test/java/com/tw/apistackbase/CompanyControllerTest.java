@@ -4,6 +4,7 @@ import com.tw.apistackbase.controller.CompanyController;
 import com.tw.apistackbase.model.Company;
 import com.tw.apistackbase.model.Employee;
 import com.tw.apistackbase.service.CompanyService;
+import org.hamcrest.Matchers;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,9 +19,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -65,6 +68,21 @@ public class CompanyControllerTest {
 
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is("1111")));
+    }
+
+    @Test
+    public void Should_return_employees_of_specific_company_when_given_companyId() throws Exception{
+
+        Employee employee = new Employee("002","eddy",22,"male",9000);
+        List<Employee> employees = Arrays.asList(employee,employee,employee);
+        Company company = new Company("1111", "alibaba", 200, employees);
+
+        when(companyService.getEmployeesById(anyString())).thenReturn(employees);
+
+        ResultActions resultActions = mockMvc.perform(get("/companies/{companyId}/employees",company.getId()));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
     }
 
 }

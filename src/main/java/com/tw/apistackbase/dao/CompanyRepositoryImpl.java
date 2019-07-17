@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CompanyRepositoryImpl implements CompanyRepository{
@@ -20,10 +21,12 @@ public class CompanyRepositoryImpl implements CompanyRepository{
     }
 
     static private Company company = new Company("1", "alibaba", 200, employeesList);
+    static private Company company2 = new Company("2", "tencent", 199, employeesList);
     static private List<Company> companyList = new ArrayList<>();
 
     static {
         companyList.add(company);
+        companyList.add(company2);
     }
 
     @Override
@@ -34,5 +37,10 @@ public class CompanyRepositoryImpl implements CompanyRepository{
     @Override
     public Company getByCompanyId(String companyId) {
         return companyList.stream().filter(company1 -> company1.getId().equals(companyId)).findFirst().get();
+    }
+
+    @Override
+    public List<Employee> getEmployeesById(String companyId) {
+        return companyList.stream().filter(company1 -> company1.getId().equals(companyId)).findFirst().get().getEmployees();
     }
 }

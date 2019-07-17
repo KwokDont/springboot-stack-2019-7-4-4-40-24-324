@@ -2,6 +2,7 @@ package com.tw.apistackbase.service;
 
 import com.tw.apistackbase.dao.CompanyRepository;
 import com.tw.apistackbase.model.Company;
+import com.tw.apistackbase.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,4 +23,15 @@ public class CompanyServiceImpl implements CompanyService {
     public Company getByCompanyId(String companyId) {
         return companyRepository.getByCompanyId(companyId);
     }
+
+    @Override
+    public void updateCompany() {
+
+    }
+
+    @Override
+    public List<Employee> getEmployeesById(String s) {
+        return companyRepository.getEmployeesById(s);
+    }
+
 }
