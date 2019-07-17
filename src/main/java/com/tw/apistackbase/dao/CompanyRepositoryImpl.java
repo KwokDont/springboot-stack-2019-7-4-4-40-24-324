@@ -53,10 +53,13 @@ public class CompanyRepositoryImpl implements CompanyRepository{
         int begin = (page - 1) * pageSize;
         int end = (begin + pageSize + 1) > companies.size() ? companies.size() - 1 : (begin + pageSize -1);
         List<Company> returnList = new ArrayList<>();
-        for(int i = begin ; i <= end ; i++){
-            System.out.println(i+"*************************");
-            returnList.add(companies.get(i));
-        }
+        for(int i = begin ; i <= end ; i++){ returnList.add(companies.get(i)); }
         return returnList;
+    }
+
+    @Override
+    public Company saveCompany(Company company) {
+        companyList.add(company);
+        return company;
     }
 }

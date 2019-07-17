@@ -16,4 +16,6 @@ public interface CompanyService {
     List<Employee> getEmployeesById(String s);
 
     List<Company> getCompaniesByPage(int anyInt, int anyInt1);
+
+    Company saveCompany(Company company);
 }

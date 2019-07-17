@@ -1,5 +1,6 @@
 package com.tw.apistackbase;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tw.apistackbase.controller.CompanyController;
 import com.tw.apistackbase.model.Company;
 import com.tw.apistackbase.model.Employee;
@@ -99,6 +100,22 @@ public class CompanyControllerTest {
 
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(5)));
+    }
+
+    @Test
+    public void Should_return_company_when_add_a_company() throws Exception{
+
+        Employee employee = new Employee("002","eddy",22,"male",9000);
+        List<Employee> employees = Arrays.asList(employee,employee,employee);
+        Company company = new Company("1111", "alibaba", 200, employees);
+
+        when(companyService.saveCompany(any())).thenReturn(company);
+
+        ResultActions resultActions = mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON_UTF8)
+                                    .content(new ObjectMapper().writeValueAsString(company)));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is("1111")));
     }
 
 }

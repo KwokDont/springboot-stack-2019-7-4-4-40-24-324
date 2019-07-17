@@ -39,4 +39,9 @@ public class CompanyServiceImpl implements CompanyService {
         return companyRepository.getCompaniesByPage(page,pageSize);
     }
 
+    @Override
+    public Company saveCompany(Company company) {
+        return companyRepository.saveCompany(company);
+    }
+
 }

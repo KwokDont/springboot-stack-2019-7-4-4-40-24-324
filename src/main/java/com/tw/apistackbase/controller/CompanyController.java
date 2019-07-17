@@ -36,7 +36,12 @@ public class CompanyController {
     }
 
     @GetMapping(value = "/companies",params = {"page","pageSize"})
-    public List<Company> getEmployeesById(@RequestParam int page, @RequestParam int pageSize){
+    public List<Company> getCompaniesByPage(@RequestParam int page, @RequestParam int pageSize){
         return companyService.getCompaniesByPage(page,pageSize);
+    }
+
+    @PostMapping(value = "/companies")
+    public Company createCompany(@RequestBody Company company){
+        return companyService.saveCompany(company);
     }
 }
